@@ -51,6 +51,8 @@
   (setq org-clock-persist t)
   (org-clock-persistence-insinuate))
 
+(require 'ox-zola)
+(setq org-hugo-date-format "%Y-%m-%d")
 
 (use-package! org-super-agenda
   :after org-agenda
@@ -67,38 +69,35 @@
                             :todo "TODAY"
                             :scheduled today
                             :order 1)))))
-            (tags-todo "-work" ((org-agenda-overriding-header "")
-                                (org-super-agenda-groups
-                                 '((:name "Important"
-                                    :tag "Important"
-                                    :priority "A"
-                                    :order 6)
-                                   (:name "Due Today"
-                                    :deadline today
-                                    :order 2)
-                                   (:name "Due Soon"
-                                    :deadline future
-                                    :order 8)
-                                   (:name "Overdue"
-                                    :deadline past
-                                    :face error
-                                    :order 7)
-                                   (:name "To read"
-                                    :tag "read"
-                                    :order 30)
-                                   (:name "People"
-                                    :and (:tag "people" :not (:tag "gifts"))
-                                    :order 19)
-                                   (:name "Waiting"
-                                    :todo "WAIT"
-                                    :order 20)
-                                   (:name "Personal"
-                                    :tag "home"
-                                    :order 29)
-                                   (:name "Geschenke"
-                                    :tag "gifts"
-                                    :order 33)
-                                   ))))))
+            (tags-todo "-work -gifts" ((org-agenda-overriding-header "")
+                                       (org-super-agenda-groups
+                                        '((:name "Important"
+                                           :tag "Important"
+                                           :priority "A"
+                                           :order 6)
+                                          (:name "Due Today"
+                                           :deadline today
+                                           :order 2)
+                                          (:name "Due Soon"
+                                           :deadline future
+                                           :order 8)
+                                          (:name "Overdue"
+                                           :deadline past
+                                           :face error
+                                           :order 7)
+                                          (:name "To read"
+                                           :tag "read"
+                                           :order 30)
+                                          (:name "People"
+                                           :and (:tag "people" :not (:tag "gifts"))
+                                           :order 19)
+                                          (:name "Waiting"
+                                           :todo "WAIT"
+                                           :order 20)
+                                          (:name "Personal"
+                                           :tag "home"
+                                           :order 29)
+                                          ))))))
           ("w" "work"
            ((agenda "" ((org-agenda-files '("~/persist/org/work.org"))
                         (org-agenda-span 'day)
@@ -132,5 +131,20 @@
                          (:name "Waiting"
                           :todo "WAIT"
                           :order 20)
-                         ))))))))
+                         ))))))
+          ("g" "gifts"
+           (todo-tags "+gifts" ((org-agenda-files '("~/persist/org/work.org"))
+                                (org-agenda-overriding-header "")
+                                (org-super-agenda-groups
+                                 '((:name "Important"
+                                    :tag "Important"
+                                    :priority "A"
+                                    :order 6)
+                                   (:name "Due Today"
+                                    :deadline today
+                                    :order 2)
+                                   (:name "Due Soon"
+                                    :deadline future
+                                    :order 8)
+                                   )))))))
   )
